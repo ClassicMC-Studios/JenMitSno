@@ -1,0 +1,62 @@
+<head>
+  <link rel="stylesheet" href="https://guyotjs.github.io/bcss/bc.css">
+  <link rel="stylesheet" href="https://guyotjs.github.io/bcss/bc-colors.css">
+<style>
+  
+  body{
+    background-color: #f9f9f9;
+  }
+  @keyframes background-pan {
+    from{
+        background-position: 0% center;
+    }
+    to{
+        background-position: -200% center;
+    }
+  }
+  .grad{
+        animation: background-pan 3s linear infinite;
+        background-image: linear-gradient(to right, rgb(139, 139, 216),skyblue,skyblue,rgb(139, 139, 216));
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        white-space: nowrap;
+        background-size: 200%;
+    }
+    .dark-grad{
+        animation: background-pan 3s linear infinite;
+        background-image: linear-gradient(to right, rgb(84, 84, 197),rgb(39, 121, 154),rgb(39, 121, 154),rgb(84, 84, 197));
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        white-space: nowrap;
+        background-size: 200%;
+        border-bottom: 1px solid rgb(39, 121, 154);
+    }
+    .pre-lev{
+    box-shadow: -2px -2px 12px rgba(255,255,255,0.1), 4px 4px 12px rgba(0,0,0,0.1);
+  }
+  .border-light{
+    border: 1px solid lightgray;
+  }
+  .inline{
+    border-radius: 6px;
+    opacity: 0.9;
+  }
+</style>
+</head>
+<div class="text-center m-xl">
+  <p class="f-xl">
+    The <span class="grad bold">Jensen</span> Family
+  </p><br/>
+</div>
+<div class="left-center w-quart relative">
+<fieldset class="p-m border-light r pre-lev ">
+  <legend style="margin-left: 5%;">Links</legend>
+  <a href="/info" class="dark-grad">Contact Information</a>
+</fieldset><br/>
+<div class="left-center">
+  <img class="inline" alt="Denmark"  src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Flag_of_Denmark.svg/2000px-Flag_of_Denmark.svg.png" width="100px"/>
+
+</div>
+</div>

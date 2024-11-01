@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body{
+      background-color: #f9f9f9;
+    }
+    .levitate:hover{
+      box-shadow: -2px -2px 12px rgba(0,0,0,0.1), 4px 4px 12px rgba(0,0,0,0.1);
+    }
+    .pre-lev{
+      box-shadow: -2px -2px 12px rgba(255,255,255,0.1), 4px 4px 12px rgba(0,0,0,0.1);
+    }
+    .m-b{
+      margin-bottom: 7px;
+    }
+    .faux-white{
+      background-color: #f9f9f9;
+    }
+    .w-full{
+      width: 100%;
+    }
+    .w-ffull{
+      width: 95%;
+    }
+  </style>
+</head>
+<body data='{
+    "userPass":"",
+    "userName":""
+  }'>
+  <div id="until">
+    <div class="true-center">
+      <div class="p-xl pre-lev">
+        <span class="f-xl">Good <span class="sky bold">Morning!</span></span><br/><br/>
+        <form>
+          <input type="text" placeholder="Username" bind="userName" class="m-b p w-ffull faux-white no-border levitate"><br/>
+          <input type="password" placeholder="Password" bind="userPass" class="p m-b no-border w-ffull faux-white levitate"><br/><br/>
+          <button class="no-border w-full p hover-bg-calm" onclick="signin()">Sign In!</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div id="allowed">
+    <div incl="./home.html"></div>
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://snojs.github.io/snojs/build/sno-min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+  <script>
+    const sbase = supabase.createClient('https://parijdyqnbbiaffwsjzh.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBhcmlqZHlxbmJiaWFmZndzanpoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mjg5MTUzOTQsImV4cCI6MjA0NDQ5MTM5NH0.cgJPJRmGA5gDhtU7z7S1f1Pdyxt5j5kL79fPOR9_nro')
+    $("#allowed").hide();
+    function signin(){
+      event.preventDefault();
+      validate();  
+    }
+    async function validate(){
+      const { data: signed, error } = await sbase.auth.signInWithPassword({
+        email: data.userName,
+        password: data.userPass,
+      });
+      if(signed.user.aud == "authenticated"){
+        $("#allowed").show();
+        $("#until").hide();
+      }
+    }
+  </script>
+</body>
+</html>
