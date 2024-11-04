@@ -1,0 +1,21 @@
+body{
+  background-color: #f9f9f9;
+}
+.levitate:hover{
+  box-shadow: -2px -2px 12px rgba(0,0,0,0.1), 4px 4px 12px rgba(0,0,0,0.1);
+}
+.pre-lev{
+  box-shadow: -2px -2px 12px rgba(255,255,255,0.1), 4px 4px 12px rgba(0,0,0,0.1);
+}
+.m-b{
+  margin-bottom: 7px;
+}
+.faux-white{
+  background-color: #f9f9f9;
+}
+.w-full{
+  width: 100%;
+}
+.w-faux-full{
+  width: 95%;
+}

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jensen | History</title>
+    <link rel="shortcut icon" href="https://guyotjs.github.io/duckclear.png" type="image/x-icon">
+    <link rel="stylesheet" href="./static/global.css">
+    <link rel="stylesheet" href="https://guyotjs.github.io/bcss/bc.css">
+    <link rel="stylesheet" href="https://guyotjs.github.io/bcss/bc-colors.css">
+    <link rel="stylesheet" href="./static/hist-global.css">
+  </head>
+  <div id="main" incl="./content/hist.html"></div>
+  <script src="./static/sno-noAuto.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+  <script src="./static/cookies.js"></script>
+  <script>
+    const sbase = supabase.createClient('https://parijdyqnbbiaffwsjzh.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBhcmlqZHlxbmJiaWFmZndzanpoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mjg5MTUzOTQsImV4cCI6MjA0NDQ5MTM5NH0.cgJPJRmGA5gDhtU7z7S1f1Pdyxt5j5kL79fPOR9_nro')
+    async function validate(){
+      const { data: signed, error } = await sbase.auth.signInWithPassword({
+        email: getCookie("user"),
+        password: getCookie("pass"),
+      });
+      if(signed.user != null){
+        parseIncl();
+      }
+    }
+    validate();
+  </script>
+</html>
