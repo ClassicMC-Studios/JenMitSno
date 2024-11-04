@@ -33,6 +33,16 @@
   <script src="./static/cookies.js"></script>
   <script>
     const sbase = supabase.createClient('https://parijdyqnbbiaffwsjzh.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBhcmlqZHlxbmJiaWFmZndzanpoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mjg5MTUzOTQsImV4cCI6MjA0NDQ5MTM5NH0.cgJPJRmGA5gDhtU7z7S1f1Pdyxt5j5kL79fPOR9_nro')
+    async function already(){
+      const { data: signed, error } = await sbase.auth.signInWithPassword({
+        email: getCookie("user"),
+        password: getCookie("pass"),
+      });
+      if(signed.user != null){
+        $("#until").hide();
+        parseIncl(signed);
+      }
+    };already();
     function signin(){
       event.preventDefault();
       validate();  
@@ -44,7 +54,7 @@
       });
       if(signed.user.aud == "authenticated"){
         $("#until").hide();
-        parseIncl();
+        parseIncl(signed);
         setCookie("user",data.userName);
         setCookie("pass",data.userPass);
       }

@@ -216,15 +216,17 @@ const allowInclReturn = (elem,hasIncl) =>{
   xhttp.send();
   return;
 }
-const parseIncl = () =>{
+const parseIncl = (isVerified) =>{
 
-  let hasIncl;
-  for(i=0;i<elements.length;i++){
-    hasIncl = elements[i].getAttribute("incl");
-    elem = elements[i]
+  if(isVerified.user.aud == "authenticated" && isVerified.user.role != null){
+    let hasIncl;
+    for(i=0;i<elements.length;i++){
+      hasIncl = elements[i].getAttribute("incl");
+      elem = elements[i]
 
-    if(hasIncl != null){
-      allowInclReturn(elem,hasIncl);
+      if(hasIncl != null){
+        allowInclReturn(elem,hasIncl);
+      }
     }
   }
 }
