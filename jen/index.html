@@ -26,6 +26,11 @@
     </div>
   </div>
   <div incl="./content/home.html"></div>
+  <div id="clearCook" class="text-center">
+    <button class="p no-border r bg-pumpkin white hover-p-m" onclick="clearCookies()">Sign Out</button>
+  </div>
+  <br/><br/><br/><br/><br/>
+  <br/><br/><br/><br/><br/>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <script src="./static/sno-noAuto.js"></script>
@@ -33,12 +38,14 @@
   <script src="./static/cookies.js"></script>
   <script>
     const sbase = supabase.createClient('https://parijdyqnbbiaffwsjzh.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBhcmlqZHlxbmJiaWFmZndzanpoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mjg5MTUzOTQsImV4cCI6MjA0NDQ5MTM5NH0.cgJPJRmGA5gDhtU7z7S1f1Pdyxt5j5kL79fPOR9_nro')
+    $("#clearCook").hide();
     async function already(){
       const { data: signed, error } = await sbase.auth.signInWithPassword({
         email: getCookie("user"),
         password: getCookie("pass"),
       });
       if(signed.user != null){
+        $("#clearCook").show();
         $("#until").hide();
         parseIncl(signed);
       }
@@ -47,12 +54,18 @@
       event.preventDefault();
       validate();  
     }
+    function clearCookies(){
+      setCookie("user","");
+      setCookie("pass","");
+      window.location.reload();
+    }
     async function validate(){
       const { data: signed, error } = await sbase.auth.signInWithPassword({
         email: data.userName,
         password: data.userPass,
       });
       if(signed.user.aud == "authenticated"){
+        $("#clearCook").show();
         $("#until").hide();
         parseIncl(signed);
         setCookie("user",data.userName);
