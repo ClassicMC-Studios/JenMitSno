@@ -19,3 +19,6 @@ body{
 .w-faux-full{
   width: 95%;
 }
+.w-responsive{
+  width:max(50%,350px);
+}
