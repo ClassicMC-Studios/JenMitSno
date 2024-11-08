@@ -10,30 +10,73 @@
     <link rel="stylesheet" href="https://guyotjs.github.io/bcss/bc-colors.css">
     <link rel="stylesheet" href="./static/hist-global.css">
   </head>
-  <div data='{"posts":[]}'>
-    <ul for="posts" item="li" item-class=""></ul>
-  </div>
-  <script src="./static/sno-noAuto.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-  <script src="./static/cookies.js"></script>
-  <script type="module">
-    const sbase = supabase.createClient('https://parijdyqnbbiaffwsjzh.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBhcmlqZHlxbmJiaWFmZndzanpoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mjg5MTUzOTQsImV4cCI6MjA0NDQ5MTM5NH0.cgJPJRmGA5gDhtU7z7S1f1Pdyxt5j5kL79fPOR9_nro')
-    const { data: signed, error } = await sbase.auth.signInWithPassword({
-      email: getCookie("user"),
-      password: getCookie("pass"),
-    });
-    if(signed.user != null){
-      console.log("Signed in!");
-    }else{
-      window.location.href = "./index.html"
-    }
-    async function run(){
-      let { data: tree, error } = await sbase
-        .from('tree')
-        .select('*');
-      for(let i=0;i<tree.length;i++){
-        data.posts.push(tree[i].content)
+  <body data='{
+    "posts":[],
+    "userSend":""
+  }'>
+    <div class="text-center m-xl">
+      <p class="f-xl">
+        The <span class="grad bold"><abbr title="Lynn & Donnelle Jensen Family">Jensen</abbr></span> Bulletin
+      </p><br/>
+    </div>
+    <div id="box" class="left-center w-responsive">
+      <div class="relative">
+        <fieldset class="p-m border-light r pre-lev ">
+          <legend style="margin-left: 5%;" class="pumpkin">Announcements</legend>
+          <div>
+            <ul for="posts" item="li" item-class="m-m"></ul>
+          </div>
+        </fieldset><br/><br/>
+        <fieldset class="p-m border-light r pre-lev ">
+          <legend style="margin-left: 5%;" class="pumpkin">Say Something</legend>
+          <input type="text" placeholder="What is your message?" bind="userSend" class="p levitate border-light"/>
+          <button class="p border-light levitate" onclick="saySomething()">Post</button>
+          <p react if="userSend != ''">
+            <br/>
+            Send: {{userSend}}?
+          </p>
+        </fieldset>
+      </div>
+    </div>
+    <script src="./static/sno-noAuto.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+    <script src="./static/cookies.js"></script>
+    <script>
+      const sbase = supabase.createClient('https://parijdyqnbbiaffwsjzh.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBhcmlqZHlxbmJiaWFmZndzanpoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mjg5MTUzOTQsImV4cCI6MjA0NDQ5MTM5NH0.cgJPJRmGA5gDhtU7z7S1f1Pdyxt5j5kL79fPOR9_nro')
+      async function validate(){
+        const { data: signed, error } = await sbase.auth.signInWithPassword({
+          email: getCookie("user"),
+          password: getCookie("pass"),
+        });
+        if(signed.user != null){
+          console.log("Signed in!");
+          run();
+        }else{
+          window.location.href = "./index.html"
+        }
+      };validate();
+      async function run(){
+        let { data: tree, error } = await sbase
+          .from('tree')
+          .select('*');
+        for(let i=0;i<tree.length;i++){
+          data.posts.push(tree[i].content)
+        }
+        data.posts = data.posts.reverse();
+      };
+      function saySomething(){
+        event.preventDefault();
+        post(data.userSend);
       }
-    };run();
-  </script>
+      async function post(said){
+        const { data, error } = await sbase
+          .from('tree')
+          .insert([
+            { poster: 'a', content: said },
+          ])
+          .select()
+        window.location.reload();
+      }
+    </script>
+  </body>
 </html>
