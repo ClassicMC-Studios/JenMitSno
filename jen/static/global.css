@@ -10,6 +10,9 @@ body{
 .m-b{
   margin-bottom: 7px;
 }
+.mb-xl{
+  margin-bottom: 50px;
+}
 .faux-white{
   background-color: #f9f9f9;
 }
@@ -23,5 +26,5 @@ body{
   width:max(50%,350px);
 }
 .grid-5{
-  display: grid;grid-template-columns: auto auto auto auto auto;
+  display: grid;grid-template-columns: auto auto auto auto auto auto;
 }
