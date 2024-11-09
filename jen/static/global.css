@@ -22,3 +22,6 @@ body{
 .w-responsive{
   width:max(50%,350px);
 }
+.grid-5{
+  display: grid;grid-template-columns: auto auto auto auto auto;
+}
