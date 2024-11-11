@@ -13,20 +13,24 @@
   <body data='{
     "ids":[],
     "names":[],
+    "sortedNames":[],
     "phones":[],
     "emails":[],
     "addresses":[],
-    "showWhich":0
+    "showWhich":0,
+    "editName":"",
+    "editPhone":"",
+    "editEmail":"",
+    "editAddress":""
   }' class="p-xl">
     <div class="text-center mb-xl">
       <p class="f-xl">
         The <span class="grad bold"><abbr title="Lynn & Donnelle Jensen Family">Jensen</abbr></span> Family
       </p><br/>
     </div>
-    <fieldset class="grid-2 r p-m text-center left-center relative w-responsive border-light pre-lev">
+    <fieldset class="r p-m text-center left-center relative w-responsive border-light pre-lev">
       <legend class="ml-m text-left" >Information</legend>
-      <div class="border-bottom-light" for="ids" item="p" item-class="m text-right gray"></div>
-      <div class="border-bottom-light" for="names" item="p" item-attr="onclick" attr-val="zoom(this)" item-class="hover-underline text-left m"></div>
+      <div class="border-bottom-light" for="sortedNames" item="p" item-attr="onclick" attr-val="zoom(this)" item-class="hover-underline text-center m"></div>
     </fieldset>
     <div class="hiddenModal absolute true-center p-m pre-lev bg-white r">
       <p react class="m">
@@ -42,6 +46,14 @@
         Address: {{addresses[showWhich]}}
       </p>
       <button onclick="hide()" class="m border-light p-sm bg-white hover-border">Hide</button>
+      <button onclick="showEdit()" class="m border-light p-sm bg-white hover-border">Edit</button>
+      <div class="editor">
+        <input type="text" class="m pre-lev p-sm border-light" bind="editName" placeholder="Include The Name"><br/>
+        <input type="text" class="m pre-lev p-sm border-light" bind="editPhone" placeholder="Include The Phone"><br/>
+        <input type="text" class="m pre-lev p-sm border-light" bind="editEmail" placeholder="Include The Email"><br/>
+        <input type="text" class="m pre-lev p-sm border-light" bind="editAddress" placeholder="Include The Address"><br/>
+      <button onclick="saveEdits()" class="m border-light p-sm bg-white hover-border">Save</button>
+    </div>
     </div>
     <script src="./static/sno-noAuto.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -72,10 +84,12 @@
           data.emails.push(people[i].email)
           data.addresses.push(people[i].address)
         }
+        data.sortedNames = data.names.sort();
         renderFors();
         click = parseClicker();
       };
       $(".hiddenModal").hide();
+      $(".editor").hide();
       var zoom = (elem) =>{
         let element = elem;
         let certainLocation;
@@ -87,8 +101,24 @@
         data.showWhich = certainLocation;
         $(".hiddenModal").show();
       }
-      var hide = () =>{
-        $(".hiddenModal").hide();
+      var hide = () =>{$(".hiddenModal").hide();}
+      var showEdit = () =>{$(".editor").toggle();}
+      var saveEdits = () =>{
+        update();
+        $(".editor").hide();
+      }
+      async function update(){
+        const { data: person, error } = await sbase
+          .from('people')
+          .update({
+            name:data.editName,
+            phone:data.editPhone,
+            email:data.editEmail,
+            address:data.editAddress
+          })
+          .eq('id',data.ids[data.showWhich])
+        
+        window.location.reload();
       }
     </script>
   </body>
