@@ -80,11 +80,12 @@
         for(let i=0;i<people.length;i++){
           data.ids.push(people[i].id)
           data.names.push(people[i].name)
+          data.sortedNames.push(people[i].name)
           data.phones.push(people[i].phone)
           data.emails.push(people[i].email)
           data.addresses.push(people[i].address)
         }
-        data.sortedNames = data.names.sort();
+        data.sortedNames.sort();
         renderFors();
         click = parseClicker();
       };
@@ -92,6 +93,7 @@
       $(".editor").hide();
       var zoom = (elem) =>{
         let element = elem;
+        // alert(element.innerText)
         let certainLocation;
         for(let i=0;i<data.names.length;i++){
           if(element.innerText == data.names[i]){
