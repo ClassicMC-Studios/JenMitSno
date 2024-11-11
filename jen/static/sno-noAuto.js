@@ -1,5 +1,8 @@
 // SnoJS Snowstorm
 // inside exe usable functions
+// This version of sno modified to not automatically render fors, or includes 
+// This version also includes custom attrubutes in for loops 
+
 function random(max) {
   return Math.floor(Math.random() * max);
 }
@@ -282,11 +285,14 @@ const renderFors = () =>{
     let newItem;
     let itemClass = fors[i].elem.getAttribute("item-class");
     let itemType = fors[i].elem.getAttribute("item");
+    let extraAttr = fors[i].elem.getAttribute("item-attr");
+    let attrValue = fors[i].elem.getAttribute("attr-val");
     // arr just shows the actually array name;
     let arr = fors[i].attr; // always use data[arr] not just arr
     for(q=0;q<data[arr].length;q++){
       newItem = document.createElement(itemType);
       newItem.classList = itemClass;
+      newItem.setAttribute(extraAttr,attrValue);
       newItem.innerHTML = data[arr][q];
       fors[i].elem.appendChild(newItem)
     }
@@ -299,6 +305,5 @@ requestAnimationFrame( main );
   renderReval();
   renderIfs();
   renderBinds();
-  renderFors();
   renderScreens();
 };main();

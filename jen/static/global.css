@@ -28,3 +28,10 @@ body{
 .grid-5{
   display: grid;grid-template-columns: auto auto auto auto auto auto;
 }
+.hover-underline:hover{
+  text-decoration: underline; 
+  font-size: 20px;
+}
+.p-sm{
+  padding: 4px;
+}
