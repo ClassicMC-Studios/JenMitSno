@@ -25,12 +25,12 @@
   }' class="p-xl">
     <div class="text-center mb-xl">
       <p class="f-xl">
-        The <span class="grad bold"><abbr title="Lynn & Donnelle Jensen Family">Jensen</abbr></span> Family
+        The <span class="grad bold"><abbr title="Lynn & Donnelle Jensen Family">Jensen</abbr></span> Family<br/>
       </p><br/>
     </div>
     <fieldset class="r p-m text-center left-center relative w-responsive border-light pre-lev">
       <legend class="ml-m text-left" >Information</legend>
-      <div class="border-bottom-light" for="sortedNames" item="p" item-attr="onclick" attr-val="zoom(this)" item-class="hover-underline text-center m"></div>
+      <div class="border-bottom-light listy" for="sortedNames" item="p" item-attr="onclick" attr-val="zoom(this)" item-class="hover-underline m"></div>
     </fieldset>
     <div class="hiddenModal absolute true-center p-m pre-lev bg-white r">
       <p react class="m">
@@ -92,18 +92,20 @@
       $(".hiddenModal").hide();
       $(".editor").hide();
       var zoom = (elem) =>{
-        let element = elem;
-        // alert(element.innerText)
+        let elemen = elem;
+        // alert(elemen.innerText)
         let certainLocation;
         for(let i=0;i<data.names.length;i++){
-          if(element.innerText == data.names[i]){
+          if(elemen.innerText.toLowerCase() == data.names[i].toLowerCase()){
             certainLocation = i;
           }
         }
         data.showWhich = certainLocation;
         $(".hiddenModal").show();
+        $('.listy').removeClass('text-center')
+        $('.listy').addClass('text-left')
       }
-      var hide = () =>{$(".hiddenModal").hide();}
+      var hide = () =>{$(".hiddenModal").hide();$('.listy').addClass('text-center');$('.listy').removeClass('text-left')}
       var showEdit = () =>{$(".editor").toggle();}
       var saveEdits = () =>{
         update();
