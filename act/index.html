@@ -20,7 +20,7 @@
             for(let i = 0;i<vars.length;i++){
                 if(supply.includes(vars[i])){
 
-                    console.log(`og:${vars[i]}.., new:${newVal}`);
+                    console.log(`App Reload`);
                     
                     supply = supply.replace(vars[i].toString(),newVal.toString());
                     vars[i] = newVal;
@@ -35,17 +35,19 @@
         const exportMain = () =>{
             app.innerHTML = supply;
         }
+    </script>
 
-
-
+    <script>
         let [count, setCount] = useState(0);
+        let [text, setText] = useState("yes");
         
         function increment(){
             count = setCount(count+1);
+            text = setText("giggity")
         }
         
         let supply = `
-            <p style="color:green;">${count}</p><br/>
+            <p style="color:white;">${count} + ${text}</p><br/>
             <button onclick="increment()">++</button>
         `
         exportMain();
