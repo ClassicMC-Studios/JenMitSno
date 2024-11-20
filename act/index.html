@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello</title>
+    <style>
+        body{
+            background-color: #2f2f2f;
+        }
+    </style>
+</head>
+<body>
+    <div id="app"></div>
+    <script>
+        let vars = []
+        let app = document.getElementById("app");
+        
+        const forceUpdate = (newVal) =>{
+            for(let i = 0;i<vars.length;i++){
+                if(supply.includes(vars[i])){
+
+                    console.log(`og:${vars[i]}.., new:${newVal}`);
+                    
+                    supply = supply.replace(vars[i].toString(),newVal.toString());
+                    vars[i] = newVal;
+                    app.innerHTML = supply;
+                }
+            }
+        }
+        const useState = (val) =>{
+            vars.push(val);
+            return [val, (newVal)=>{forceUpdate(newVal);return newVal;}]
+        }
+        const exportMain = () =>{
+            app.innerHTML = supply;
+        }
+
+
+
+        let [count, setCount] = useState(0);
+        
+        function increment(){
+            count = setCount(count+1);
+        }
+        
+        let supply = `
+            <p style="color:green;">${count}</p><br/>
+            <button onclick="increment()">++</button>
+        `
+        exportMain();
+    </script>
+</body>
+</html>
