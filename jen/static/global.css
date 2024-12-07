@@ -35,3 +35,6 @@ body{
 .p-sm{
   padding: 4px;
 }
+.fw-light{
+  font-weight: 200;
+}
